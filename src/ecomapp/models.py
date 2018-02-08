@@ -1,6 +1,9 @@
 from django.db import models
 from django.urls import reverse
-
+from django.contrib.auth.models import (
+    BaseUserManager, AbstractBaseUser
+)
+from django.core.validators import RegexValidator
 
 CATEGORIES = (
     ('food','Food'),

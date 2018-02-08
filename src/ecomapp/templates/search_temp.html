@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+  <form method="get">
+    {{ filter.form.as_p }}
+    <button type="submit">Search</button>
+  </form>
+
+  {% for data in filter.qs %}
+    <div class="row">
+        <!-- Left Album Info -->
+        <div class="col-sm-4 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                        {% if data.images %}
+                            <img src="{{ data.images.url }}" class="img-responsive">
+                        {% else %}
+                            <h3>No image to display</h3>
+                        {% endif %}
+                    </a>
+                    <h3 class="album-font"><label>Product : </label>{{   data.name }}<br><label>Category : </label>{{ data.category }}<br> <label>Price : </label>{{ data.price }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Song Info -->
+        <div class="col-sm-8 col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="album-font">
+                    <h3><label>Products</label></h3>
+                    </div>
+
+                    {% if error_message %}
+                    <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <table class="table table-condensed">
+                        <thead class="album-font">
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Publish Date</th>
+                            <th>Modified Date</th>
+                        </tr>
+                        </thead>
+                        <tbody class="album-font">
+                        <tr>
+                            <td>{{ data.name }}</td>
+                            <td> {{ data.desc }}</td>
+                            <td> {{ data.category }}</td>
+                            <td> {{ data.price }}</td>
+                            <td> {{ data.quantity }}</td>
+                            <td> {{ data.publish_date}}</td>
+                            <td> {{ data.modified_at }}</td>
+                            <td>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+  {% endfor %}
+{% endblock %}

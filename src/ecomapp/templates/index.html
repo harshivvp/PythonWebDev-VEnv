@@ -6,10 +6,19 @@
  <!-- Albums -->
     <div class="row">
         <div class="album-font">
-        <div class="col-sm-12">
-            <h3>{{ user.username }}'s Albums</h3>
-        </div>
-        {% if products %}
+
+            <div class="col-sm-12">
+                <h2>{{ user.username|title }}'s Albums: </h2>
+            </div>
+
+
+<form method="get">
+    <a href="{% url 'ecomapp:search' %}" class="btn">Search</a>
+    <a href="{% url 'ecomapp:search2' %}" class="btn">Search-type2</a>
+</form>
+
+
+            {% if products %}
             {% for product in products %}
                 <div class="col-sm-4 col-md-3">
                     <div class="thumbnail">

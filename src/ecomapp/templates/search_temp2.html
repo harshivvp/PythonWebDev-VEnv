@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+  <form method="get" class="container">
+    {{ filter.form.as_p }}
+    <button type="submit">Search</button>
+  </form>
+
+  {% for data in filter.qs %}
+                <div class="col-sm-4 col-md-3">
+                    <div class="thumbnail">
+                        <a href="#">
+                            {% if data.images %}
+                                <img src="{{ data.images.url }}" class="img-responsive">
+                            {% endif %}
+                        </a>
+                            <center>
+                                <h3>Product Name: <small>{{ data.name }}</small></h3>
+                                <h4>Description: <small>{{ data.desc }}</small></h4>
+                                <h4>Category: <small>{{ data.category }}</small></h4>
+                                <h4>Price: <small>{{ data.price }}</small></h4>
+                                <h4>Publish date: <small>{{ data.publish_date }}</small></h4>
+                                <h4>Modified date: <small>{{ data.modified_at }}</small></h4>
+                            </center>
+                    </div>
+                </div>
+                {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+  {% endfor %}
+
+{%endblock %}
