@@ -1,0 +1,101 @@
+
+{% extends 'base.html' %}
+<!doctype html>
+<html lang="en">
+<head>
+    {% load staticfiles%}
+    <meta charset="UTF-8">
+    <title>Pictures</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" crossorigin="anonymous">
+        <!--<script type="text/javascript">-->
+<!--$('.carousel').carousel()-->
+<!--</script>-->
+
+</head>
+
+{%block body %}
+
+<div class="container-fluid songs-container">
+
+    <div class="row">
+            <form method="POST" action="search/">
+                {% csrf_token %}
+                <input type="text" name="q" value="{{request.GET.q}}" placeholder="search here."/>
+                <button class="btn btn-success" type="submit">enter</button>
+            </form>
+        <!-- Left Album Info -->
+        <div class="col-sm-4 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="{% url 'ecomapp:detail' product.id %}">
+                        {% if product.images %}
+                            <img src="{{ product.images.url }}" class="img-responsive">
+                        {% else %}
+                            <h3>No image to display</h3>
+                        {% endif %}
+                    </a>
+                    <h3 class="album-font"><label>Product : </label>{{ product.name }}<br><label>Category : </label>{{ product.category }}<br> <label>Price : </label>{{ product.price }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Song Info -->
+        <div class="col-sm-8 col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="album-font">
+                    <h3><label>Products</label></h3>
+                    </div>
+
+                    {% if error_message %}
+                    <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <table class="table table-condensed">
+                        <thead class="album-font">
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Publish Date</th>
+                            <th>Modified Date</th>
+                        </tr>
+                        </thead>
+                        <tbody class="album-font">
+                        <tr>
+                            <td>{{ product.name }}</td>
+                            <td> {{ product.desc }}</td>
+                            <td> {{ product.category }}</td>
+                            <td> {{ product.price }}</td>
+                            <td> {{ product.quantity }}</td>
+                            <td> {{ product.publish_date}}</td>
+                            <td> {{ product.modified_at }}</td>
+                            <td>
+                                <form action="{% url 'ecomapp:delete_prod' product.id %}" method="post" style="display: inline;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="product_id" value="{{ product.id }}" />
+                                    <button type="submit" class="btn btn-danger btn-xs">
+                                        <span class="glyphicon glyphicon-remove"></span>&nbsp; Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="{% static 'ecomapp/js/ajax.js' %}"></script>
+
+{%endblock%}
+
+</html>

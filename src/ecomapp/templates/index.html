@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block albums_active %}active{% endblock %}
+
+{% block body %}
+<div class="albums-container container-fluid">
+ <!-- Albums -->
+    <div class="row">
+        <div class="album-font">
+        <div class="col-sm-12">
+            <h3>{{ user.username }}'s Albums</h3>
+        </div>
+        {% if products %}
+            {% for product in products %}
+                <div class="col-sm-4 col-md-3">
+                    <div class="thumbnail">
+                        <a href="{% url 'ecomapp:detail' product.id %}">
+                            {% if product.images %}
+                                <img src="{{ product.images.url }}" class="img-responsive">
+                            {% endif %}
+                        </a>
+                            <center>
+                                <h3>Product Name: <small>{{ product.name }}</small></h3>
+                                <h4>Quantity: <small>{{ product.quantity }}</small></h4>
+
+                            <!-- View Details -->
+                            <a href="{% url 'ecomapp:detail' product.id %}" class="btn btn-dark btn-sm" role="button">View Details</a>
+                            <a href="{% url 'ecomapp:prod_update' product.id %}" class="btn btn-dark btn-sm" role="button">Update Details</a>
+
+                            <!-- Delete Album -->
+                            <form action="{% url 'ecomapp:delete_prod' product.id %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="product_id" value="{{ product.id }}" />
+                                <button type="submit" class="btn btn-dark btn-sm">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+
+                            </form>
+                            </center>
+                    </div>
+                </div>
+                {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+            {% endfor %}
+        {% else %}
+            <div class="col-sm-12">
+                <br>
+                <a href="{% url 'ecoapp:index' prod_create %}">
+                    <button type="button" class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus"></span>&nbsp; Add Products
+                    </button>
+                </a>
+            </div>
+        {% endif %}
+            </div>
+    </div>
+</div>
+{% endblock %}

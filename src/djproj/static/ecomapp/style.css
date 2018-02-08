@@ -1,0 +1,14 @@
+body
+{
+	background: white url("images/background.png")
+}
+
+.navbar-brand
+{
+    font-family: 'Montserrat',cursive;
+}
+
+.album-font
+{
+    font-family: 'Montserrat';
+}
