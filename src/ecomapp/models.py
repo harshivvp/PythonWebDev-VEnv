@@ -1,9 +1,5 @@
 from django.db import models
 from django.urls import reverse
-from django.contrib.auth.models import (
-    BaseUserManager, AbstractBaseUser
-)
-from django.core.validators import RegexValidator
 
 CATEGORIES = (
     ('food','Food'),
@@ -18,7 +14,7 @@ class Product(models.Model):
 
     name = models.CharField(max_length=30)
     desc = models.CharField(max_length=250)
-    category = models.CharField(max_length=50, choices=CATEGORIES, default='food')
+    category = models.CharField(max_length=50 , choices=CATEGORIES, default='food')
     images = models.FileField(default='')
     price = models.IntegerField(default=0)
     quantity = models.IntegerField(default=0)

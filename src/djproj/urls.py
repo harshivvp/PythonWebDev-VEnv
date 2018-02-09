@@ -21,10 +21,9 @@ from django.contrib.auth import views as auth_views
 from django.conf import settings
 
 urlpatterns = [
-    path('login/', auth_views.login,{'template_name': 'login.html'}, name='login'),
-    # path(r'^logout/$', auth_views.logout,{'template_name': 'logged_out.html'}, name='logout'),
     path('admin/', admin.site.urls),
-    path('ecomapp/', include('ecomapp.urls',namespace='ecomapp')),
+    path('login/', auth_views.login,{'template_name': 'login.html'}, name='login'),
+    path('ecomapp/', include('ecomapp.urls',namespace="ecomapp")),
 ]
 
 if settings.DEBUG:

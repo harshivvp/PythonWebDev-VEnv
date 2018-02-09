@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+{% extends 'base.html' %}
 {% block title %}Register{% endblock %}
+{% block register_active %}active{% endblock %}
+{% block body %}
 <div class="container-fluid">
     <div class="row">
         <div class="album-font">
@@ -17,13 +20,13 @@
                         {% include 'form_template.html' %}
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <a href="{% url 'ecomapp:login' %}">Login</a>
+                                <button type="submit" class="btn btn-dark">Submit</button>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="panel-footer"><div class="album-font">
-                    Already have an account? <a href="{% url 'ecomapp:login' %}">Click here</a> to log in.
+                    Registered user? <a href="{% url 'login' %}">Click here</a> to log in.
                 </div></div>
             </div>
         </div>
@@ -32,3 +35,5 @@
 
 </div>
 </head></html>
+{% endblock %}
+

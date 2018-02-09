@@ -49,12 +49,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/ecomapp/'
+
 ROOT_URLCONF = 'djproj.urls'
-
-LOGIN_REDIRECT_URL = 'ecomapp:index'
-
 
 TEMPLATES = [
     {

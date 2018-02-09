@@ -12,3 +12,12 @@ body
 {
     font-family: 'Montserrat';
 }
+
+.btn-dark
+{
+outline: 0;
+padding: 5px 12px;
+color: #9fa8b0;
+background-color: #474646;
+font-family: 'Montserrat',cursive;
+}

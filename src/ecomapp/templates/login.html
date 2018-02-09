@@ -1,6 +1,9 @@
+{% extends 'base.html'%}
+
+{% block title %}Login{% endblock %}
+{% block login_active %}active{% endblock %}
 
 {% block body %}
-
 {% if form.errors %}
 <p>Your username and password didn't match. Please try again.</p>
 {% endif %}
@@ -14,7 +17,7 @@
     {% endif %}
 {% endif %}
 
-<form method="post" action="{% url 'login' %}">
+<form method="post" class="container container-fluid" action="{% url 'login' %}">
 {% csrf_token %}
 <table>
 <tr>
@@ -27,11 +30,11 @@
 </tr>
 </table>
 
-<input type="submit" value="login" />
+<input class="btn btn-dark" type="submit" value="Login" />
 <input type="hidden" name="next" value="{{ next }}" />
+
+<p><a href="{% url 'ecomapp:register' %}">Register?</a></p>
 </form>
 
-{# Assumes you setup the password_reset view in your URLconf #}
-<p><a href="{% url 'ecomapp:register' %}">Register?</a></p>
 
 {% endblock %}
