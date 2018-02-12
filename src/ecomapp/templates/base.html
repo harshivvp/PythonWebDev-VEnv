@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     {% load staticfiles %}
@@ -9,12 +10,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="{% static 'ecomapp/js/main.js' %}"></script>
-    <title class="album-font">{% block title %}ProductProject{% endblock %}</title>
+    <title class="navbar-brand">{% block title %}ProductProject{% endblock %}</title>
 </head>
 
-
 <body>
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse custom-navbar-height">
     <div class="container-fluid">
         <!-- Header -->
         <div class="navbar-header">
@@ -23,15 +23,15 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class= "navbar-brand" href="{% url 'ecomapp:index' %}">ProductSite</a>
-        </div>
-
+            <a class= "navbar-brand" href="{% url 'ecomapp:index' %}"><big>ProductSite</big></a>
+                    <a class="navbar-brand" href="{% url 'ecomapp:index' %}">
+                    <span class="glyphicon glyphicon-book" aria-hidden="true"></span>&nbsp; Products
+                    </a>
+                    <a href="{% url 'ecomapp:search' %}" class="navbar-brand">&nbsp; Search</a>
+                    <a href="{% url 'ecomapp:search2' %}" class="navbar-brand">&nbsp;Search.v2</a>
+         </div>
         <!-- Items -->
         <div class="collapse navbar-collapse" id="topNavBar">
-            <ul class="nav navbar-nav">
-                <li class="{% block albums_active %}{% endblock %}"><a class="album-font" href="{% url 'ecomapp:index' %}">
-                    <span class="glyphicon glyphicon-book" aria-hidden="true"></span>&nbsp; Products</a></li>
-            </ul>
 
             <ul class="nav navbar-nav navbar-right">
                 <li>
@@ -47,9 +47,7 @@
             </ul>
         </div>
     </div>
-
 </nav>
-
 {% block body %}
 {% endblock %}
 </body>

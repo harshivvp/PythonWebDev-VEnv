@@ -10,14 +10,10 @@
             <div class="col-sm-12">
                 <h2>{{ user.username|title }}'s Albums: </h2>
             </div>
-
-
             {% if products %}
             {% for product in products %}
             <div class="col-sm-4 col-md-3">
                 <div class="thumbnail">
-                    <a href="{% url 'ecomapp:search' %}" class="btn">Search</a>
-                    <a href="{% url 'ecomapp:search2' %}" class="btn">Search-type2</a>
                     <a href="{% url 'ecomapp:detail' product.id %}">
                         {% if product.images %}
                         <img src="{{ product.images.url }}" class="img-responsive">

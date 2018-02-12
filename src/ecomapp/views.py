@@ -68,7 +68,7 @@ class ProdCreateView(LoginReqMixin,generic.CreateView):
 
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            return HttpResponseRedirect("login.html")
+            return HttpResponseRedirect("accounts/login.html")
         form = self.get_form(ProductForm)
         if form.is_valid():
             f = form.save(commit=False)
@@ -87,12 +87,22 @@ class ProdUpdateView(LoginReqMixin,generic.UpdateView):
     success_url = reverse_lazy("ecomapp:index")
 
 class LogOutView(generic.RedirectView):
-    url = '/login/'
+    """
+    A view that logout user and redirect to homepage.
+    """
+    permanent = False
+    query_string = True
+    pattern_name = 'ecomapp:index'
 
-    def get(self, request, *args, **kwargs):
-        logout(request)
-        return super(LogOutView, self).get(request, *args, **kwargs)
-#
+    def get_redirect_url(self, *args, **kwargs):
+        """
+        Logout user and redirect to target url.
+        """
+        if self.request.user.is_authenticated:
+            logout(self.request)
+        return super(LogOutView, self).get_redirect_url(*args, **kwargs)
+
+
 # class LoginView(generic.FormView):
 #
 #     success_url = 'ecomapp:index'
@@ -131,7 +141,6 @@ def search2(request):
     filter = ProductFilter(request.GET, queryset=prod_list)
     return render(request,template_name, {'filter': filter})
 
-
 def login(request):
     if request.method == "POST":
         username = request.POST['username']
@@ -139,14 +148,32 @@ def login(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             if user.is_active:
-                login(request, user)
+                django.contrib.auth.login(request, user)
                 product = Product.objects.filter(user=request.user)
-                return render(request, 'index.html', {'albums': product})
+                return render(request, 'index.html', {'products': product})
             else:
-                return render(request, 'login.html', {'error_message': 'Your account has been disabled'})
+                return render(request, 'accounts/login.html', {'error_message': 'Your account has been disabled'})
         else:
-            return render(request, 'login.html', {'error_message': 'Invalid login'})
-    return render(request, 'login.html')
+            return render(request, 'accounts/login.html', {'error_message': 'Invalid login'})
+    return render(request, 'accounts/login.html')
+
+#
+# def login(request):
+#
+#     if request.method == "POST":
+#         username = request.POST['username']
+#         password = request.POST['password']
+#         user = authenticate(username=username, password=password)
+#         if user is not None:
+#             if user.is_active:
+#                 login(user)
+#                 product = Product.objects.filter(user=request.user)
+#                 return render(request, 'accounts/index.html', {'albums': product})
+#             else:
+#                 return render(request, 'accounts/login.html', {'error_message': 'Your account has been disabled'})
+#         else:
+#             return render(request, 'accounts/login.html', {'error_message': 'Invalid login'})
+#     return render(request, 'accounts/login.html')
 
 
 def register(request):
@@ -162,11 +189,11 @@ def register(request):
             if user.is_active:
                 django.contrib.auth.login(request,user)
                 prods = Product.objects.filter(user=request.user)
-                return render(request, 'login.html', {'products': prods})
+                return render(request, 'accounts/login.html', {'products': prods})
     context = {
         "form": form,
     }
-    return render(request, 'register.html', context)
+    return render(request, 'accounts/register.html', context)
 
 # def search_prod(request):
 #

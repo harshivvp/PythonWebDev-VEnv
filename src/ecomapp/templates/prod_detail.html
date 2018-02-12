@@ -28,7 +28,7 @@
                             <h3>No image to display</h3>
                         {% endif %}
                     </a>
-                    <h3 class="album-font"><label>Product : </label>{{ product.name }}<br><label>Category : </label>{{ product.category }}<br> <label>Price : </label>{{ product.price }}</h3>
+                    <h3 class="album-font"><label> Product : </label> {{ product.name }} <br> <label>Category : </label> {{ product.category }} <br> <label>Price : </label> {{ product.price }} rs. </h3>
                 </div>
             </div>
         </div>
@@ -55,6 +55,7 @@
                             <th>Quantity</th>
                             <th>Publish Date</th>
                             <th>Modified Date</th>
+                            <th>Delete</th>
                         </tr>
                         </thead>
                         <tbody class="album-font">
@@ -66,8 +67,7 @@
                             <td> {{ product.quantity }}</td>
                             <td> {{ product.publish_date}}</td>
                             <td> {{ product.modified_at }}</td>
-                            <td>
-                                <form action="{% url 'ecomapp:delete_prod' product.id %}" method="post" style="display: inline;">
+                             <td><form action="{% url 'ecomapp:delete_prod' product.id %}" method="post" style="display: inline;">
                                     {% csrf_token %}
                                     <input type="hidden" name="product_id" value="{{ product.id }}" />
                                     <button type="submit" class="btn btn-danger btn-xs">
@@ -75,7 +75,7 @@
                                     </button>
                                 </form>
                             </td>
-                        </tr>
+                        </td>
                         </tbody>
                     </table>
                 </div>

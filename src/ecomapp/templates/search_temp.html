@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
 
-
 {% block body %}
-  <form method="get">
+  <form method="get" class="container container-fluid album-font">
     {{ filter.form.as_p }}
-    <button type="submit">Search</button>
+
+    <button class="btn btn-dark hvr-grow" type="submit">Search</button>
+  <br>
   </form>
 
   {% for data in filter.qs %}
-    <div class="row">
+  <br>  <div class="container container-fluid">
         <!-- Left Album Info -->
         <div class="col-sm-4 col-md-3">
             <div class="panel panel-default">
